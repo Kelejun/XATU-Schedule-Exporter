@@ -38,3 +38,7 @@
 ## 许可证
 
 MIT License - 详见 [LICENSE](LICENSE) 文件。
+
+## AI 开发辅助情况
+
+本项目在 Gemini 3.0 Pro 及 Github Copilot 的辅助下开发。
