@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "XATU 课表导出助手",
+    "description": "The name of the extension"
+  },
+  "appDesc": {
+    "message": "一键导出西安工业大学教务系统课程表为 ICS 日历文件。",
+    "description": "The description of the extension"
+  }
+}

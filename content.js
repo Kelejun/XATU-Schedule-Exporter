@@ -406,12 +406,7 @@ function createExportButton() {
     const button = document.createElement('button');
     button.id = 'xatu-export-ics-btn';
 
-    // 使用 chrome.runtime.getURL 引用扩展内的图标
-    const iconUrl = chrome.runtime.getURL('images/icon32.png');
-    button.innerHTML = `
-        <img src="${iconUrl}" style="width: 20px; height: 20px; margin-right: 8px; display: block;">
-        <span>导出课程表</span>
-    `;
+    button.innerHTML = `<span>📆 导出课程表</span>    `;
     
     // 样式：固定在 Top Frame 的右下角，即屏幕右下角
     Object.assign(button.style, {

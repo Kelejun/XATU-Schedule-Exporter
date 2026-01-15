@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "XATU 课表导出助手",
+  "default_locale": "zh_CN",
+  "name": "__MSG_appName__",
   "version": "1.1",
-  "description": "导出西安工业大学教务系统课程表为 .ics 文件。",
+  "description": "__MSG_appDesc__",
   "icons": {
     "16": "images/icon16.png",
     "32": "images/icon32.png",
