@@ -27,7 +27,7 @@
 7. 选择包含 `manifest.json` 文件的目录。
 
 ### 通过 Microsoft Edge 商店安装
-`待审核`
+[![Get it from Microsoft](https://developer.microsoft.com/store/badges/images/English_get-it-from-MS.png)](https://microsoftedge.microsoft.com/addons/detail/xatu-%E8%AF%BE%E8%A1%A8%E5%AF%BC%E5%87%BA%E5%8A%A9%E6%89%8B/gihpconiaaadladpoadoamdikpmofhfa)
 
 ## 使用方法
 
