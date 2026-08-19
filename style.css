@@ -52,8 +52,10 @@ h2 {
     border-radius: 4px;
     font-size: 14px;
     transition: background-color 0.2s;
+   border: none;
+   cursor: pointer;
 }
 
 .link-btn:hover {
-    background-color: #0056b3;
+   background-color: #0056b3;
 }
