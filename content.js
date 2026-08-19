@@ -38,6 +38,51 @@ function formatDateUTC(date) {
 // 辅助：两位填充
 function pad2(n) { return String(n).padStart(2, '0'); }
 
+function isExtensionContextValid() {
+    try {
+        return typeof chrome !== 'undefined' &&
+            !!chrome.runtime &&
+            !!chrome.runtime.id;
+    } catch (e) {
+        return false;
+    }
+}
+
+function safeStorageGet(keys, fallback, callback) {
+    if (!isExtensionContextValid() || !chrome.storage || !chrome.storage.sync) {
+        callback(fallback);
+        return;
+    }
+
+    try {
+        chrome.storage.sync.get(keys, (res) => {
+            if (chrome.runtime && chrome.runtime.lastError) {
+                console.warn('[XATU Extension] storage.get failed:', chrome.runtime.lastError.message);
+                callback(fallback);
+                return;
+            }
+            callback(res || fallback);
+        });
+    } catch (e) {
+        console.warn('[XATU Extension] storage.get exception:', e);
+        callback(fallback);
+    }
+}
+
+function safeStorageSet(data) {
+    if (!isExtensionContextValid() || !chrome.storage || !chrome.storage.sync) return;
+
+    try {
+        chrome.storage.sync.set(data, () => {
+            if (chrome.runtime && chrome.runtime.lastError) {
+                console.warn('[XATU Extension] storage.set failed:', chrome.runtime.lastError.message);
+            }
+        });
+    } catch (e) {
+        console.warn('[XATU Extension] storage.set exception:', e);
+    }
+}
+
 // ----------------------------------------------------------------------------
 // 课程表解析核心逻辑
 // ----------------------------------------------------------------------------
@@ -393,13 +438,9 @@ function showDatePicker(callback) {
     input.style.marginBottom = '12px';
 
     const defaultDate = (new Date()).toISOString().split('T')[0];
-    if (chrome && chrome.storage && chrome.storage.sync) {
-        chrome.storage.sync.get(['semesterStartDate'], (res) => {
-            input.value = res && res.semesterStartDate ? res.semesterStartDate : defaultDate;
-        });
-    } else {
-        input.value = defaultDate;
-    }
+    safeStorageGet(['semesterStartDate'], { semesterStartDate: defaultDate }, (res) => {
+        input.value = res && res.semesterStartDate ? res.semesterStartDate : defaultDate;
+    });
 
     const btnRow = document.createElement('div');
     btnRow.style.display = 'flex';
@@ -444,9 +485,7 @@ function showDatePicker(callback) {
             return;
         }
         // 保存为默认以便下次快速选择
-        if (chrome && chrome.storage && chrome.storage.sync) {
-            chrome.storage.sync.set({ semesterStartDate: val });
-        }
+        safeStorageSet({ semesterStartDate: val });
         if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
         callback(val);
     });
